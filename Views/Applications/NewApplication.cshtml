@@ -272,28 +272,10 @@
                                 <input type="text" class="form-control" placeholder="$650,000" ng-model="ac.appModel.propertyValue" ng-change="ac.calcLtv()">
                             </div>
                         </div>
+                        <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="col-sm-3 control-label">Escrow?</label>
-                            <div class="col-sm-9">
-                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentEscrow" />
-                            </div>
-                        </div>
-                        <div class="form-group" ng-show="ac.appModel.isCurrentEscrow">
-                            <label class="col-sm-3 control-label">Current Escrow Payment</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentEscrowTotal">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">PMI/MIP?</label>
-                            <div class="col-sm-9">
-                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentPmi" />
-                            </div>
-                        </div>
-                        <div class="form-group" ng-show="ac.appModel.isCurrentPmi">
-                            <label class="col-sm-3 control-label">Current MIP/PMI Payment</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentPmiTotal">
+                            <div class="col-sm-4 col-sm-offset-4">
+                                <button class="btn btn-primary" type="button">Calculate Rate</button>
                             </div>
                         </div>
                     </form>
@@ -317,6 +299,7 @@
     <script src="~/Scripts/ngSwitchery.js"></script>
 
     <script src="~/Scripts/Controllers/NewAppController.js"></script>
+    <script src="~/Scripts/Services/ApplicationsService.js"></script>
 
     <script type="text/javascript">
         window.onload = function () {

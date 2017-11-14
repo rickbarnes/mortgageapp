@@ -2,7 +2,7 @@
     'use strict'
 
     angular.module(LendBot).controller("newAppController", NewAppController);
-    NewAppController.$inject = ["$scope"];
+    NewAppController.$inject = ["$scope","appService"];
 
     function NewAppController($scope) {
 
@@ -21,9 +21,6 @@
             consolidationSum: 0,
             consolidationPayments: 0,
             occupancy: "",
-            currentLoan: {
-
-            },
             currentBalance: 0,
             currentRate: 4.5,
             currentTerm: 30,
@@ -45,12 +42,16 @@
         };
 
         vm.$onInit = _init;
+        vm.calcRates = _calcRates;
 
 
         function _init() {
            
         }
 
+        function _calcRates() {
+
+        }
 
 
 
