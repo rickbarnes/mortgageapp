@@ -1,0 +1,361 @@
+﻿@{
+    ViewBag.Title = "New Application";
+}
+<style>
+    .Fixed {
+        position: fixed;
+        top: 20px;
+        float: unset;
+    }
+</style>
+<div ng-controller="newAppController as ac">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Applicant Information</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Applicant Name</label>
+
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-md-6"><input type="text" placeholder="First Name" class="form-control" ng-model="ac.appModel.firstName"></div>
+                                    <div class="col-md-6"><input type="text" placeholder="Last Name" class="form-control" ng-model="ac.appModel.lastName"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">State</label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control m-b" name="state">
+                                    <option>California</option>
+                                    <option>Arizona</option>
+                                    <option>Colorado</option>
+                                    <option>Washington</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Home Phone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" data-mask="(999) 999-9999" placeholder="(###) ###-####" ng-model="ac.appModel.homePhone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Mobile Phone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" data-mask="(999) 999-9999" placeholder="(###) ###-####" ng-model="ac.appModel.mobilePhone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Email</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="email@example.com" ng-model="ac.appModel.email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">FICO Estimate</label>
+                            <div class="col-sm-9">
+                                <select class="select2_demo_1 form-control" ng-model="ac.appModel.fico">
+                                    <option value="1">Excellent</option>
+                                    <option value="2">Great</option>
+                                    <option value="3">Good</option>
+                                    <option value="3">Average</option>
+                                    <option value="3">Poor</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4" id="scrollBox">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Applicant Snapshot</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p ng-show="ac.appModel.firstName"><b>Name: </b>{{ac.appModel.firstName}} {{ac.appModel.lastName}}</p>
+                    <p ng-show="ac.appModel.propertyValue && ac.appModel.currentBalance"><b>LTV: </b>{{ac.appModel.propertyValue}} {{ac.appModel.currentBalance}}</p>
+                    <p ng-show="ac.appModel.goals">
+                        <b>Goals: </b>
+                        <ul ng-repeat="goal in ac.appModel.goals">
+                            <li>{{goal}}</li>
+                        </ul>
+                    </p>
+                    <p ng-show="ac.appModel.cashOut"><b>Cash Out: </b>$ {{ac.appModel.cashOut}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Goals</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Refinance Goals</label>
+                            <div class="col-sm-9">
+                                <select class="select2_demo_2 form-control" multiple="multiple" placeholder="Choose refinance goals" ng-model="ac.appModel.goals">
+                                    <option value="Lower Payment">Lower Payment</option>
+                                    <option value="Cash Out">Cash Out</option>
+                                    <option value="Fixed Rate">Fixed Rate</option>
+                                    <option value="Remove MIP/PMI">Remove MIP/PMI</option>
+                                    <option value="Shorten Term">Shorten Term</option>
+                                    <option value="Debt Consolidation">Debt Consolidation</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.goals.includes('Lower Payment')">
+                            <label class="col-sm-3 control-label">Desired Monthly Savings</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$100" ng-model="ac.appModel.desiredSavings">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.goals.includes('Cash Out')">
+                            <label class="col-sm-3 control-label">Desired Cash Out</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$10,000" ng-model="ac.appModel.cashOut">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.goals.includes('Shorten Term')">
+                            <label class="col-sm-3 control-label">New Term Length</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="15" ng-model="ac.appModel.newTerm">
+                                <span class="help-block m-b-none">In years</span>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.goals.includes('Debt Consolidation')">
+                            <label class="col-sm-3 control-label">Total Debts</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="25000" ng-model="ac.appModel.consolidationSum">
+                                <span class="help-block m-b-none">Total Amount of Accumulated Debt to be Consolidated</span>
+                            </div>
+                            <label class="col-sm-3 control-label">Sum of Debt Payments</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="500" ng-model="ac.appModel.consolidationPayments">
+                                <span class="help-block m-b-none">Amount spent monthly towards accumulated debts</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Current Loan</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Occupancy</label>
+                            <div class="col-sm-9">
+                                <select class="select2_demo_1 form-control" ng-model="ac.appModel.occupancy">
+                                    <option value="1">Primary</option>
+                                    <option value="2">Secondary</option>
+                                    <option value="3">Investment</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Current Loan Balance</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$350,000" ng-model="ac.appModel.currentBalance">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Current Rate</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="4.5%" ng-model="ac.appModel.currentRate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Current Term</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="30 year, 15 year, etc." ng-model="ac.appModel.currentTerm">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Current Payment</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$2,500" ng-model="ac.appModel.currentPayment">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Escrow?</label>
+                            <div class="col-sm-9">
+                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentEscrow"/>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.isCurrentEscrow">
+                            <label class="col-sm-3 control-label">Current Escrow Payment</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentEscrowTotal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">PMI/MIP?</label>
+                            <div class="col-sm-9">
+                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentPmi" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.isCurrentPmi">
+                            <label class="col-sm-3 control-label">Current MIP/PMI Payment</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentPmiTotal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Property Information</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <form method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Property Type</label>
+                            <div class="col-sm-9">
+                                <select class="select2_demo_1 form-control" ng-model="ac.appModel.propertyType">
+                                    <option value="1">Single Family Residence</option>
+                                    <option value="2">Multi-Family (Less than 4 units)</option>
+                                    <option value="3">Condo</option>
+                                    <option value="3">Manufactured Home</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Estimated Property Value</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$650,000" ng-model="ac.appModel.propertyValue">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Escrow?</label>
+                            <div class="col-sm-9">
+                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentEscrow" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.isCurrentEscrow">
+                            <label class="col-sm-3 control-label">Current Escrow Payment</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentEscrowTotal">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">PMI/MIP?</label>
+                            <div class="col-sm-9">
+                                <input ui-switch="{color: '#1AB394', size: 'small'}" type="checkbox" class="js-switch" checked ng-model="ac.appModel.isCurrentPmi" />
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="ac.appModel.isCurrentPmi">
+                            <label class="col-sm-3 control-label">Current MIP/PMI Payment</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="$200" ng-model="ac.appModel.currentPmiTotal">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/plugins/flot")
+    @Scripts.Render("~/plugins/sparkline")
+    @Scripts.Render("~/plugins/chartJs")
+    @Scripts.Render("~/plugins/peity")
+    @Scripts.Render("~/plugins/jasnyBootstrap")
+    @Styles.Render("~/plugins/select2Styles")
+    @Scripts.Render("~/plugins/select2")
+    @Styles.Render("~/plugins/switcheryStyles")
+    @Scripts.Render("~/plugins/switchery")
+    <script src="~/Scripts/ngSwitchery.js"></script>
+
+    <script src="~/Scripts/Controllers/NewAppController.js"></script>
+
+    <script type="text/javascript">
+        window.onload = function () {
+
+            $(".select2_demo_1").select2();
+            $(".select2_demo_2").select2();
+
+            //var elem = document.querySelector('.js-switch');
+            //var switchery = new Switchery(elem, { color: '#1AB394', size: 'small' });
+
+            function getScrollTop() {
+                if (typeof window.pageYOffset !== 'undefined') {
+                    // Most browsers
+                    return window.pageYOffset;
+                }
+
+                var d = document.documentElement;
+                if (d.clientHeight) {
+                    // IE in standards mode
+                    return d.scrollTop;
+                }
+
+                // IE in quirks mode
+                return document.body.scrollTop;
+            }
+
+            window.onscroll = function () {
+                var box = document.getElementById('scrollBox'),
+                    scroll = getScrollTop();
+
+                if (scroll <= 28) {
+                    box.style.top = "30px";
+                }
+                else {
+                    box.style.top = (scroll + 2) + "px";
+                }
+            };
+
+        };
+
+    </script>
+}
