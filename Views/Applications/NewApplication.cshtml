@@ -90,8 +90,8 @@
                 </div>
                 <div class="ibox-content">
                     <p ng-show="ac.appModel.firstName"><b>Name: </b>{{ac.appModel.firstName}} {{ac.appModel.lastName}}</p>
-                    <p ng-show="ac.appModel.propertyValue && ac.appModel.currentBalance"><b>LTV: </b>{{ac.appModel.propertyValue}} {{ac.appModel.currentBalance}}</p>
-                    <p ng-show="ac.appModel.goals">
+                    <p ng-show="ac.appModel.propertyValue && ac.appModel.currentBalance"><b>LTV: </b>{{ac.appModel.ltv}}%</p>
+                    <p ng-show="ac.appModel.goals[0]">
                         <b>Goals: </b>
                         <ul ng-repeat="goal in ac.appModel.goals">
                             <li>{{goal}}</li>
@@ -192,7 +192,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Current Loan Balance</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="$350,000" ng-model="ac.appModel.currentBalance">
+                                <input type="text" class="form-control" placeholder="$350,000" ng-model="ac.appModel.currentBalance" ng-change="ac.calcLtv()">
                             </div>
                         </div>
                         <div class="form-group">
@@ -269,7 +269,7 @@
                         <div class="form-group">
                             <label class="col-sm-3 control-label">Estimated Property Value</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" placeholder="$650,000" ng-model="ac.appModel.propertyValue">
+                                <input type="text" class="form-control" placeholder="$650,000" ng-model="ac.appModel.propertyValue" ng-change="ac.calcLtv()">
                             </div>
                         </div>
                         <div class="form-group">
